@@ -48,7 +48,7 @@ def mount_and_add_to_fstab(account_name, share_name, client_id, client_secret):
 
     cmd_mount = f"sudo mount -t cifs //{account_name}.file.core.windows.net/{share_name} {mount_path} -o vers=3.0,credentials={credentials_path},sec=ntlmssp"
     subprocess.run(cmd_mount, shell=True)
-
+    print (cmd_mount)
     fstab_entry = f"//{account_name}.file.core.windows.net/{share_name} {mount_path} cifs vers=3.0,credentials={credentials_path},sec=ntlmssp 0 0\n"
     with open('/etc/fstab', 'a') as f:
         f.write(fstab_entry)
