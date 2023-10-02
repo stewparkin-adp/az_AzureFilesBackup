@@ -62,7 +62,6 @@ def main(args):
         os.chmod(CREDENTIALS_FILE, 0o700)
 
     for account in storage_accounts:
-        print(account)
         shares = get_file_shares(token, account, args.subscription_id)
         for share in shares:
             mount_and_add_to_fstab(account['name'], share['name'], args.client_id, args.client_secret)
