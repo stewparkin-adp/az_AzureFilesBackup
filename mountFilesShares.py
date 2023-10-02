@@ -39,7 +39,7 @@ def mount_and_add_to_fstab(account_name, share_name, client_id, client_secret):
       f.write(f"username={client_id}\n")
       f.write(f"password={client_secret}\n")
 
-   os.chown(credentials_path, adp:adp)
+   os.chown(credentials_path, "adp:adp")
    os.chmod(credentials_path, 0o600)
 
    mount_path = f"/mnt/azure-files/{account_name}-{share_name}"
