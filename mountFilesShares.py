@@ -23,6 +23,7 @@ def get_storage_accounts(token, subscription_id):
         'Authorization': f'Bearer {token}'
     }
     response = requests.get(url, headers=headers).json()
+    print (response)
     return response['value']
 
 def get_file_shares(token, storage_account, subscription_id):
