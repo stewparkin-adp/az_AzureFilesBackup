@@ -39,17 +39,16 @@ def mount_and_add_to_fstab(account_name, share_name, client_id, client_secret):
       f.write(f"username={client_id}\n")
       f.write(f"password={client_secret}\n")
 
-   os.chown(credentials_path, "adp:adp")
    os.chmod(credentials_path, 0o600)
 
    mount_path = f"/mnt/azure-files/{account_name}-{share_name}"
    if not os.path.exists(mount_path):
       os.makedirs(mount_path)
 
-   cmd_mount = f"sudo mount -t cifs //{account_name}.file.core.windows.net/{share_name} {mount_path} -o vers=3.0,credentials={credentials_path},sec=ntlmssp"
+   cmd_mount = f"sudo mount -t cifs //{account_name}.file.core.windows.net/{share_name} {mount_path} -o credentials={credentials_path},dir_mode=0777,file_mode=0777,serverino,nosharesock,actimeo=30"
    subprocess.run(cmd_mount, shell=True)
    print (cmd_mount)
-   fstab_entry = f"//{account_name}.file.core.windows.net/{share_name} {mount_path} cifs vers=3.0,credentials={credentials_path},sec=ntlmssp 0 0\n"
+   fstab_entry = f"//{account_name}.file.core.windows.net/{share_name} {mount_path} cifs vers=3.0,credentials={credentials_path},dir_mode=0777,file_mode=0777,serverino,nosharesock,actimeo=30\n"
    with open('/etc/fstab', 'a') as f:
       f.write(fstab_entry)
 
