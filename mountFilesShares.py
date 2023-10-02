@@ -26,7 +26,7 @@ def get_storage_accounts(token, subscription_id):
     return response['value']
 
 def get_file_shares(token, storage_account, subscription_id):
-    url = f"https://management.azure.com/subscriptions/{subscription_id}/resourceGroups/{storage_account['resourceGroup']}/providers/Microsoft.Storage/storageAccounts/{storage_account['name']}/fileServices/default/shares?api-version=2019-06-01"
+    url = f"https://management.azure.com/{storage_account['id']}/fileServices/default/shares?api-version=2019-06-01"
     headers = {
         'Authorization': f'Bearer {token}'
     }
