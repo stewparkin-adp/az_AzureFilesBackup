@@ -3,7 +3,7 @@ import os
 import subprocess
 import argparse
 
-CREDENTIALS_FILE = "/home/adp/smbcredentials"
+CREDENTIALS_FILE = "/etc/smbcredentials"
 
 def get_token(tenant_id, client_id, client_secret, resource):
    url = f"https://login.microsoftonline.com/{tenant_id}/oauth2/token"
