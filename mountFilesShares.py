@@ -35,10 +35,14 @@ def get_file_shares(token, storage_account, subscription_id):
 
 def mount_and_add_to_fstab(account_name, share_name, client_id, client_secret):
    credentials_path = f"{CREDENTIALS_FILE}/{share_name}.cred"
-   with open(credentials_path, 'w') as f:
-      f.write(f"username={client_id}\n")
-      f.write(f"password={client_secret}\n")
+   # with open(credentials_path, 'w') as f:
+   #    f.write(f"username={client_id}\n")
+   #    f.write(f"password={client_secret}\n")
+   username = f"sudo bash -c 'echo \"username = {client_id} >> {CREDENTIALS_FILE}/{share_name}.cred'"
+   password = f"sudo bash -c 'echo \"username = {client_secret} >> {CREDENTIALS_FILE}/{share_name}.cred'"
 
+   subprocess.run(username,shell=True)
+   subprocess.run(password, shell=True)
    os.chmod(credentials_path, 0o600)
 
    mount_path = f"/mnt/azure-files/{share_name}"
