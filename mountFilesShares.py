@@ -3,7 +3,7 @@ import os
 import subprocess
 import argparse
 
-CREDENTIALS_FILE = "/etc/smbcredentials"
+CREDENTIALS_FILE = "/home/adp/smbcredentials"
 
 def get_token(tenant_id, client_id, client_secret, resource):
     url = f"https://login.microsoftonline.com/{tenant_id}/oauth2/token"
@@ -34,7 +34,7 @@ def get_file_shares(token, storage_account, subscription_id):
     return response['value']
 
 def mount_and_add_to_fstab(account_name, share_name, client_id, client_secret):
-    credentials_path = f"{CREDENTIALS_FILE}/{account_name}-{share_name}.cred"
+    credentials_path = f"{CREDENTIALS_FILE}/{share_name}.cred"
 
     with open(credentials_path, 'w') as f:
         f.write(f"username={client_id}\n")
@@ -62,6 +62,7 @@ def main(args):
         os.chmod(CREDENTIALS_FILE, 0o700)
 
     for account in storage_accounts:
+        print(account)
         shares = get_file_shares(token, account, args.subscription_id)
         for share in shares:
             mount_and_add_to_fstab(account['name'], share['name'], args.client_id, args.client_secret)
