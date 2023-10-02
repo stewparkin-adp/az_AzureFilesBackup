@@ -8,12 +8,12 @@ CREDENTIALS_FILE = "/etc/smbcredentials"
 def get_token(tenant_id, client_id, client_secret, resource):
     url = f"https://login.microsoftonline.com/{tenant_id}/oauth2/token"
     payload = {
-        'grant_type': 'client_credentials',
-        'client_id': client_id,
-        'client_secret': client_secret,
-        'resource': resource
+      'grant_type': 'client_credentials',
+      'client_id': client_id,
+      'client_secret': client_secret,
+      'resource': resource
     }
-    
+
     response = requests.post(url, data=payload).json()
     return response.get('access_token')
 
