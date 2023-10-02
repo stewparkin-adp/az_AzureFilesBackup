@@ -41,7 +41,7 @@ def mount_and_add_to_fstab(account_name, share_name, client_id, client_secret):
 
    os.chmod(credentials_path, 0o600)
 
-   mount_path = f"/mnt/azure-files/{account_name}-{share_name}"
+   mount_path = f"/mnt/azure-files/{share_name}"
    if not os.path.exists(mount_path):
       os.makedirs(mount_path)
 
